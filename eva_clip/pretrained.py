@@ -322,12 +322,12 @@ def download_pretrained(
         target = download_pretrained_from_url(download_url, cache_dir=cache_dir)
     elif download_hf_hub:
         print(f"HF_HOME: {os.getenv('HF_HOME', 'Not Set')}")
-        print(f"Downloading {model_id} {filename} from Hugging Face Hub...")
         has_hf_hub(True)
         # we assume the hf_hub entries in pretrained config combine model_id + filename in
         # 'org/model_name/filename.pt' form. To specify just the model id w/o filename and
         # use 'open_clip_pytorch_model.bin' default, there must be a trailing slash 'org/model_name/'.
         model_id, filename = os.path.split(download_hf_hub)
+        print(f"Downloading {model_id} {filename} from Hugging Face Hub...")
         if filename:
             target = download_pretrained_from_hf(model_id, filename=filename, cache_dir=cache_dir)
         else:
