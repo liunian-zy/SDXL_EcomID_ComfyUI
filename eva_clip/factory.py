@@ -240,6 +240,7 @@ def create_model(
         )
     else:
         model_cfg = get_model_config(model_name)
+        print(f"HF_HOME: {os.getenv('HF_HOME', 'Not Set')}")
         if model_cfg is not None:
             logging.info(f'Loaded {model_name} model config.')
         else:
