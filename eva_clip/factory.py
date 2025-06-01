@@ -359,7 +359,7 @@ def create_model_and_transforms(
         model_name: str,
         pretrained: Optional[str] = None,
         precision: str = 'fp32',
-        device: Union[str, torch.device] = 'cpu',
+        device: Union[str, torch.device] = 'cuda',
         jit: bool = False,
         force_quick_gelu: bool = False,
         force_custom_clip: bool = False,

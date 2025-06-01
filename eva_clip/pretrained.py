@@ -297,6 +297,7 @@ def download_pretrained_from_hf(
         cache_dir: Union[str, None] = None,
 ):
     has_hf_hub(True)
+    print(f"Downloading {model_id} {filename} from Hugging Face Hub...")
     cached_file = hf_hub_download(model_id, filename, revision=revision, cache_dir=cache_dir)
     return cached_file
 
