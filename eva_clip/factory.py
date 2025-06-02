@@ -277,9 +277,12 @@ def create_model(
             checkpoint_path = ''
             pretrained_cfg = get_pretrained_cfg(model_name, pretrained)
             if pretrained_cfg:
+                logging.info(f"开始下载pretrained_cfg: {pretrained_cfg}")
                 checkpoint_path = download_pretrained(pretrained_cfg, cache_dir=cache_dir)
+                logging.info(f"pretrained_cfg下载完成: {checkpoint_path}")
             elif os.path.exists(pretrained):
                 checkpoint_path = pretrained
+                logging.info(f"pretrained文件存在: {checkpoint_path}")
 
             if checkpoint_path:
                 logging.info(f'Loading pretrained {model_name} weights ({pretrained}).')

@@ -4,7 +4,7 @@ import urllib
 import warnings
 from functools import partial
 from typing import Dict, Union
-
+import logging
 from tqdm import tqdm
 
 try:
@@ -296,10 +296,10 @@ def download_pretrained_from_hf(
         revision=None,
         cache_dir: Union[str, None] = None,
 ):
-    
     has_hf_hub(True)
-    
+    logging.info(f"开始下载pretrained_from_hf: {model_id} {filename} {revision} {cache_dir}")
     cached_file = hf_hub_download(model_id, filename, revision=revision, cache_dir=cache_dir)
+    logging.info(f"pretrained_from_hf下载完成: {cached_file}")
     return cached_file
 
 
@@ -321,13 +321,12 @@ def download_pretrained(
     if download_url:
         target = download_pretrained_from_url(download_url, cache_dir=cache_dir)
     elif download_hf_hub:
-        print(f"HF_HOME: {os.getenv('HF_HOME', 'Not Set')}")
         has_hf_hub(True)
         # we assume the hf_hub entries in pretrained config combine model_id + filename in
         # 'org/model_name/filename.pt' form. To specify just the model id w/o filename and
         # use 'open_clip_pytorch_model.bin' default, there must be a trailing slash 'org/model_name/'.
         model_id, filename = os.path.split(download_hf_hub)
-        print(f"Downloading {model_id} {filename} from Hugging Face Hub...")
+        logging.info(f"Downloading {model_id} {filename} from Hugging Face Hub...")
         if filename:
             target = download_pretrained_from_hf(model_id, filename=filename, cache_dir=cache_dir)
         else:
